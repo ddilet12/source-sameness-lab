@@ -72,6 +72,7 @@ export const categories = [
   { id: "tiskebasar", name: "Тіскебасар" },
   { id: "chicken", name: "Чикендер" },
   { id: "drinks", name: "Сусындар / Drinks" },
+  { id: "sauces", name: "Соустар" },
 ];
 
 export const products: Product[] = [
