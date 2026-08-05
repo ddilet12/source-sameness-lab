@@ -27,8 +27,7 @@ function CartPage() {
   const [street, setStreet] = useState("");
   const [house, setHouse] = useState("");
   const [error, setError] = useState("");
-  const deliveryFee = fulfillment === "delivery" ? 500 : 0;
-  const finalTotal = subtotal + deliveryFee;
+  const finalTotal = subtotal;
 
   const order = () => {
     if (items.length === 0) {
@@ -41,7 +40,7 @@ function CartPage() {
     }
     setError("");
     const fulfillmentLine = fulfillment === "delivery"
-      ? `Жеткізу — 500₸\n*Мекенжай (Адрес):* ${city.trim()}, ${street.trim()}, ${house.trim()}`
+      ? `Жеткізу\n*Мекенжай (Адрес):* ${city.trim()}, ${street.trim()}, ${house.trim()}`
       : "Алып кету / Самовывоз";
     const lines = items.map((i) => `• ${i.qty}x ${i.name} — ${i.price * i.qty}₸`).join("\n");
     const message = `*ТАПСЫРЫС (CHICO CHICKEN)*\n\n*Тауарлар:*\n${lines}\n\n${fulfillmentLine}\n*Барлығы:* ${finalTotal}₸`;
@@ -138,23 +137,11 @@ function CartPage() {
             </button>
           </div>
 
-          {fulfillment === "delivery" && (
-            <p className="rounded-lg bg-accent p-3 text-xs font-semibold leading-relaxed">
-              🚚 Стоимость доставки составляет 500 ₸ и автоматически добавлена к вашему заказу.
-            </p>
-          )}
-
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Жалпы сумма</dt>
               <dd className="font-bold">{formatPrice(subtotal)}</dd>
             </div>
-            {fulfillment === "delivery" && (
-              <div className="flex justify-between">
-                <dt className="text-muted-foreground">Доставка</dt>
-                <dd className="font-bold">500 ₸</dd>
-              </div>
-            )}
             <div className="flex justify-between border-t border-border pt-3 text-base">
               <dt className="font-black">Барлығы</dt>
               <dd className="font-black text-primary">{formatPrice(finalTotal)}</dd>
