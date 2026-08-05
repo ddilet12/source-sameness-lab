@@ -35,6 +35,9 @@ import pikoApple09l from "@/assets/drink-piko-apple-09l.jpg";
 import piko02l from "@/assets/drink-piko-02l.jpg";
 import ayran03l from "@/assets/drink-ayran-03l.jpg";
 import cocaColaDraft05l from "@/assets/drink-coca-cola-draft-05l.jpg";
+import sauceCheese from "@/assets/sauce-cheese.jpg";
+import sauceBbq from "@/assets/sauce-bbq.jpg";
+import sauceKetchup from "@/assets/sauce-ketchup.jpg";
 
 export const images = {
   comboHotbox,
