@@ -19,7 +19,7 @@ import pizzaBolognese from "@/assets/pizza-bolognese.jpg";
 import pizzaChickenMushroom from "@/assets/pizza-chicken-mushroom.jpg";
 import cocaCola1l from "@/assets/drink-coca-cola-1l.jpg";
 import cocaCola05l from "@/assets/drink-coca-cola-05l.jpg";
-import cocaColaCan from "@/assets/drink-coca-cola-can.jpg";
+import cocaCola2l from "@/assets/drink-coca-cola-2l.jpg";
 import sprite1l from "@/assets/drink-sprite-1l.jpg";
 import sprite05l from "@/assets/drink-sprite-05l.jpg";
 import fanta1l from "@/assets/drink-fanta-1l.jpg";
@@ -451,7 +451,7 @@ export const products: Product[] = [
   // ================= СУСЫНДАР / DRINKS =================
   { id: "coca-cola-1l", name: "COCA-COLA 1 Л", price: 1000, category: "drinks", image: cocaCola1l, items: ["Пластик бөтелке, 1 л"] },
   { id: "coca-cola-05l", name: "COCA-COLA 0.5 Л", price: 500, category: "drinks", image: cocaCola05l, items: ["Пластик бөтелке, 0.5 л"] },
-  { id: "coca-cola-can", name: "COCA-COLA (ЖЕСТЯНАЯ БАНКА)", price: 700, category: "drinks", image: cocaColaCan, items: ["Жестяная банка"] },
+  { id: "coca-cola-2l", name: "COCA-COLA 2 Л", price: 1500, category: "drinks", image: cocaCola2l, items: ["Пластик бөтелке, 2 л"] },
   { id: "sprite-1l", name: "SPRITE 1 Л", price: 1000, category: "drinks", image: sprite1l, items: ["Пластик бөтелке, 1 л"] },
   { id: "sprite-05l", name: "SPRITE 0.5 Л", price: 500, category: "drinks", image: sprite05l, items: ["Пластик бөтелке, 0.5 л"] },
   { id: "fanta-1l", name: "FANTA 1 Л", price: 1000, category: "drinks", image: fanta1l, items: ["Пластик бөтелке, 1 л"] },
