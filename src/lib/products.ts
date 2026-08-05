@@ -455,7 +455,7 @@ export const products: Product[] = [
   // ================= СУСЫНДАР / DRINKS =================
   { id: "coca-cola-1l", name: "COCA-COLA 1 Л", price: 750, category: "drinks", image: cocaCola1l, items: ["Пластик бөтелке, 1 л"] },
   { id: "coca-cola-05l", name: "COCA-COLA 0.5 Л", price: 600, category: "drinks", image: cocaCola05l, items: ["Пластик бөтелке, 0.5 л"] },
-  { id: "coca-cola-2l", name: "COCA-COLA 2 Л", price: 1500, category: "drinks", image: cocaCola2l, items: ["Пластик бөтелке, 2 л"] },
+  
   { id: "sprite-1l", name: "SPRITE 1 Л", price: 750, category: "drinks", image: sprite1l, items: ["Пластик бөтелке, 1 л"] },
   { id: "sprite-05l", name: "SPRITE 0.5 Л", price: 550, category: "drinks", image: sprite05l, items: ["Пластик бөтелке, 0.5 л"] },
   { id: "fanta-1l", name: "FANTA 1 Л", price: 750, category: "drinks", image: fanta1l, items: ["Пластик бөтелке, 1 л"] },
