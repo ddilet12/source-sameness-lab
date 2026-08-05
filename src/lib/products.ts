@@ -19,7 +19,7 @@ import pizzaBolognese from "@/assets/pizza-bolognese.jpg";
 import pizzaChickenMushroom from "@/assets/pizza-chicken-mushroom.jpg";
 import cocaCola1l from "@/assets/drink-coca-cola-1l.jpg";
 import cocaCola05l from "@/assets/drink-coca-cola-05l.jpg";
-import cocaCola2l from "@/assets/drink-coca-cola-2l.jpg";
+
 import sprite1l from "@/assets/drink-sprite-1l.jpg";
 import sprite05l from "@/assets/drink-sprite-05l.jpg";
 import fanta1l from "@/assets/drink-fanta-1l.jpg";
