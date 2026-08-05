@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BaylanysRouteImport } from './routes/baylanys'
+import { Route as BizTuralyRouteImport } from './routes/biz-turaly'
+import { Route as JetkizuRouteImport } from './routes/jetkizu'
+import { Route as MenuRouteImport } from './routes/menu'
+import { Route as SebetRouteImport } from './routes/sebet'
+import { Route as OnimIdRouteImport } from './routes/onim.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BaylanysRoute = BaylanysRouteImport.update({
+  id: '/baylanys',
+  path: '/baylanys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BizTuralyRoute = BizTuralyRouteImport.update({
+  id: '/biz-turaly',
+  path: '/biz-turaly',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JetkizuRoute = JetkizuRouteImport.update({
+  id: '/jetkizu',
+  path: '/jetkizu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SebetRoute = SebetRouteImport.update({
+  id: '/sebet',
+  path: '/sebet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnimIdRoute = OnimIdRouteImport.update({
+  id: '/onim/$id',
+  path: '/onim/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/baylanys': typeof BaylanysRoute
+  '/biz-turaly': typeof BizTuralyRoute
+  '/jetkizu': typeof JetkizuRoute
+  '/menu': typeof MenuRoute
+  '/sebet': typeof SebetRoute
+  '/onim/$id': typeof OnimIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/baylanys': typeof BaylanysRoute
+  '/biz-turaly': typeof BizTuralyRoute
+  '/jetkizu': typeof JetkizuRoute
+  '/menu': typeof MenuRoute
+  '/sebet': typeof SebetRoute
+  '/onim/$id': typeof OnimIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/baylanys': typeof BaylanysRoute
+  '/biz-turaly': typeof BizTuralyRoute
+  '/jetkizu': typeof JetkizuRoute
+  '/menu': typeof MenuRoute
+  '/sebet': typeof SebetRoute
+  '/onim/$id': typeof OnimIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/baylanys'
+    | '/biz-turaly'
+    | '/jetkizu'
+    | '/menu'
+    | '/sebet'
+    | '/onim/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/baylanys'
+    | '/biz-turaly'
+    | '/jetkizu'
+    | '/menu'
+    | '/sebet'
+    | '/onim/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/baylanys'
+    | '/biz-turaly'
+    | '/jetkizu'
+    | '/menu'
+    | '/sebet'
+    | '/onim/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BaylanysRoute: typeof BaylanysRoute
+  BizTuralyRoute: typeof BizTuralyRoute
+  JetkizuRoute: typeof JetkizuRoute
+  MenuRoute: typeof MenuRoute
+  SebetRoute: typeof SebetRoute
+  OnimIdRoute: typeof OnimIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/baylanys': {
+      id: '/baylanys'
+      path: '/baylanys'
+      fullPath: '/baylanys'
+      preLoaderRoute: typeof BaylanysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biz-turaly': {
+      id: '/biz-turaly'
+      path: '/biz-turaly'
+      fullPath: '/biz-turaly'
+      preLoaderRoute: typeof BizTuralyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jetkizu': {
+      id: '/jetkizu'
+      path: '/jetkizu'
+      fullPath: '/jetkizu'
+      preLoaderRoute: typeof JetkizuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sebet': {
+      id: '/sebet'
+      path: '/sebet'
+      fullPath: '/sebet'
+      preLoaderRoute: typeof SebetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onim/$id': {
+      id: '/onim/$id'
+      path: '/onim/$id'
+      fullPath: '/onim/$id'
+      preLoaderRoute: typeof OnimIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BaylanysRoute: BaylanysRoute,
+  BizTuralyRoute: BizTuralyRoute,
+  JetkizuRoute: JetkizuRoute,
+  MenuRoute: MenuRoute,
+  SebetRoute: SebetRoute,
+  OnimIdRoute: OnimIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
