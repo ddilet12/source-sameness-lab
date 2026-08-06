@@ -35,6 +35,8 @@ import pikoApple09l from "@/assets/drink-piko-apple-09l.jpg";
 import piko02l from "@/assets/drink-piko-02l.jpg";
 import ayran03l from "@/assets/drink-ayran-03l.jpg";
 import cocaColaDraft05l from "@/assets/drink-coca-cola-draft-05l.jpg";
+import stripsBucket from "@/assets/strips-bucket.jpg";
+import juniorStripsFries from "@/assets/junior-strips-fries.jpg";
 import sauceCheese from "@/assets/sauce-cheese.jpg";
 import sauceBbq from "@/assets/sauce-bbq.jpg";
 import sauceKetchup from "@/assets/sauce-ketchup.jpg";
@@ -424,7 +426,7 @@ export const products: Product[] = [
     name: "СТРИПСЫ 5 ДАНА",
     price: 1690,
     category: "chicken",
-    image: chicken,
+    image: stripsBucket,
     items: ["Стрипсы 5 дана"],
   },
   {
@@ -432,7 +434,7 @@ export const products: Product[] = [
     name: "JUNIOR",
     price: 1590,
     category: "chicken",
-    image: chicken,
+    image: juniorStripsFries,
     items: ["150 г", "Фри L"],
   },
   {
