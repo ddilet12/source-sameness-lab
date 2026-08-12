@@ -1,6 +1,7 @@
 import comboHotbox from "@/assets/combo-hotbox.jpg";
 import chicken from "@/assets/chicken.jpg";
 import burger from "@/assets/burger.jpg";
+import burgerChico from "@/assets/burger-chico.jpg";
 import pizza from "@/assets/pizza.jpg";
 import fries from "@/assets/fries.jpg";
 import drinks from "@/assets/drinks.jpg";
@@ -270,7 +271,7 @@ export const products: Product[] = [
     name: "БУРГЕР ЕТПЕН",
     price: 1890,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Говяжий бургер"],
   },
   {
@@ -278,7 +279,7 @@ export const products: Product[] = [
     name: "БУРГЕР ҚҰС ЕТІ",
     price: 1750,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Куриный бургер"],
   },
   {
@@ -286,7 +287,7 @@ export const products: Product[] = [
     name: "MIX БУРГЕР",
     price: 2350,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Mix бургер"],
   },
   {
@@ -294,7 +295,7 @@ export const products: Product[] = [
     name: "KIDS БУРГЕР",
     price: 1550,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Балалар бургері"],
   },
   {
@@ -302,7 +303,7 @@ export const products: Product[] = [
     name: "ТРОПИЧЕСКИЙ БУРГЕР",
     price: 1690,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Тропический бургер"],
   },
   {
@@ -310,7 +311,7 @@ export const products: Product[] = [
     name: "DOUBLE БУРГЕР",
     price: 2450,
     category: "burger",
-    image: burger,
+    image: burgerChico,
     items: ["Double бургер"],
   },
   {
