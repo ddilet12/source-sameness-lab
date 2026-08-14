@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Minus, Plus, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, MapPin, Minus, Plus, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { formatPrice, WHATSAPP_PHONE } from "@/lib/products";
+import { deliveryDistricts, getDistrictById, formatDeliveryPrice } from "@/lib/delivery";
 
 export const Route = createFileRoute("/sebet")({
   head: () => ({
@@ -20,27 +21,110 @@ export const Route = createFileRoute("/sebet")({
   component: CartPage,
 });
 
+function DistrictSelect({
+  value,
+  onChange,
+}: {
+  value: string | undefined;
+  onChange: (id: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selected = getDistrictById(value);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 rounded-lg border border-input bg-background px-3 py-2 text-left text-sm outline-none transition-colors focus:border-primary"
+      >
+        <span className="flex items-center gap-2 min-w-0">
+          <MapPin className="size-4 shrink-0 text-primary" />
+          <span className={selected ? "text-foreground" : "text-muted-foreground"}>
+            {selected ? selected.name : "Выберите район"}
+          </span>
+        </span>
+        <span className="flex items-center gap-2 shrink-0">
+          {selected && (
+            <span className="font-bold text-primary">{formatDeliveryPrice(selected.price)}</span>
+          )}
+          <ChevronDown
+            className={`size-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          />
+        </span>
+      </button>
+
+      {open && (
+        <div className="absolute z-20 mt-1 w-full rounded-xl border border-border bg-card p-1 shadow-[var(--shadow-card)]">
+          <ul role="listbox" className="max-h-64 overflow-auto">
+            {deliveryDistricts.map((d) => (
+              <li key={d.id} role="option" aria-selected={d.id === value}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(d.id);
+                    setOpen(false);
+                  }}
+                  className={`flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                    d.id === value
+                      ? "bg-primary/10 text-foreground"
+                      : "hover:bg-accent"
+                  }`}
+                >
+                  <span className="font-medium">{d.name}</span>
+                  <span className="font-black text-primary">{formatDeliveryPrice(d.price)}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function CartPage() {
   const { items, setQty, remove, count, subtotal } = useCart();
   const [fulfillment, setFulfillment] = useState<"delivery" | "pickup">("delivery");
-  const [city, setCity] = useState("Жаңаөзен");
-  const [street, setStreet] = useState("");
-  const [house, setHouse] = useState("");
+  const [address, setAddress] = useState("");
+  const [districtId, setDistrictId] = useState<string | undefined>(undefined);
   const [error, setError] = useState("");
-  const finalTotal = subtotal;
+
+  const delivery = fulfillment === "delivery" ? getDistrictById(districtId)?.price ?? 0 : 0;
+  const finalTotal = subtotal + delivery;
 
   const order = () => {
     if (items.length === 0) {
       setError("Себет бос. Алдымен тағам таңдаңыз.");
       return;
     }
-    if (fulfillment === "delivery" && (!city.trim() || !street.trim() || !house.trim())) {
-      setError("Жеткізу мекенжайын толық енгізіңіз (қала, көше, үй/пәтер).");
-      return;
+    if (fulfillment === "delivery") {
+      if (!address.trim()) {
+        setError("Пожалуйста, укажите адрес доставки.");
+        return;
+      }
+      if (!districtId) {
+        setError("Пожалуйста, выберите район доставки.");
+        return;
+      }
     }
     setError("");
+    const district = getDistrictById(districtId);
     const fulfillmentLine = fulfillment === "delivery"
-      ? `Жеткізу\n*Мекенжай (Адрес):* ${city.trim()}, ${street.trim()}, ${house.trim()}`
+      ? `Жеткізу\n*Мекенжай (Адрес):* ${address.trim()}\n*Район:* ${district?.name}\n*Доставка:* ${district?.price}₸`
       : "Алып кету / Самовывоз";
     const lines = items.map((i) => `• ${i.qty}x ${i.name} — ${i.price * i.qty}₸`).join("\n");
     const message = `*ТАПСЫРЫС (CHICO CHICKEN)*\n\n*Тауарлар:*\n${lines}\n\n${fulfillmentLine}\n*Барлығы:* ${finalTotal}₸`;
@@ -137,38 +221,46 @@ function CartPage() {
             </button>
           </div>
 
+          {fulfillment === "delivery" && (
+            <div className="space-y-3">
+              <h3 className="text-xs font-black uppercase tracking-wide">Жеткізу мекенжайы</h3>
+              <div className="space-y-1.5">
+                <label htmlFor="delivery-address" className="text-xs font-semibold text-muted-foreground">
+                  Введите адрес доставки
+                </label>
+                <input
+                  id="delivery-address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Қала, көше, үй / пәтер"
+                  className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none transition-colors focus:border-primary"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-muted-foreground">Выберите район</label>
+                <DistrictSelect value={districtId} onChange={setDistrictId} />
+              </div>
+            </div>
+          )}
+
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Жалпы сумма</dt>
+              <dt className="text-muted-foreground">Сумма заказа</dt>
               <dd className="font-bold">{formatPrice(subtotal)}</dd>
             </div>
+            {fulfillment === "delivery" && (
+              <div className="flex justify-between">
+                <dt className="text-muted-foreground">Доставка</dt>
+                <dd className="font-bold text-primary">
+                  {getDistrictById(districtId) ? formatDeliveryPrice(delivery) : "—"}
+                </dd>
+              </div>
+            )}
             <div className="flex justify-between border-t border-border pt-3 text-base">
-              <dt className="font-black">Барлығы</dt>
+              <dt className="font-black">Итого</dt>
               <dd className="font-black text-primary">{formatPrice(finalTotal)}</dd>
             </div>
           </dl>
-
-          {fulfillment === "delivery" && <div className="space-y-2">
-            <h3 className="text-xs font-black uppercase tracking-wide">Жеткізу мекенжайы</h3>
-            <input
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              placeholder="Қала"
-              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-            <input
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
-              placeholder="Көше / микрорайон"
-              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-            <input
-              value={house}
-              onChange={(e) => setHouse(e.target.value)}
-              placeholder="Үй / пәтер"
-              className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-          </div>}
 
           {error && <p className="text-xs font-semibold text-destructive">{error}</p>}
 
@@ -178,7 +270,6 @@ function CartPage() {
           >
             Тапсырыс беру
           </button>
-
         </aside>
       </div>
     </div>
