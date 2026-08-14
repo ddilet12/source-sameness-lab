@@ -1,3 +1,5 @@
+import { formatPrice } from "@/lib/products";
+
 export type DeliveryDistrict = {
   id: string;
   name: string;
@@ -19,5 +21,4 @@ export const deliveryDistricts: DeliveryDistrict[] = [
 export const getDistrictById = (id: string | undefined) =>
   deliveryDistricts.find((d) => d.id === id);
 
-export const formatPrice = (n: number) =>
-  `${n.toLocaleString("ru-RU").replace(/\u00A0/g, " ")} ₸`;
+export const formatDeliveryPrice = (price: number) => formatPrice(price);
