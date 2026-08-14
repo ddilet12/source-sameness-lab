@@ -103,6 +103,11 @@ function CartPage() {
   const [districtId, setDistrictId] = useState<string | undefined>(undefined);
   const [error, setError] = useState("");
 
+  // Clear validation error when user changes delivery inputs
+  useEffect(() => {
+    if (error) setError("");
+  }, [address, districtId, fulfillment, error]);
+
   const delivery = fulfillment === "delivery" ? getDistrictById(districtId)?.price ?? 0 : 0;
   const finalTotal = subtotal + delivery;
 
